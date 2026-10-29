@@ -1,0 +1,31 @@
+# Python virtual environments
+.venv_gpu/
+.venv/
+venv/
+
+# Secrets and API keys
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Private face authentication data
+**/face_database/
+**/registered_faces/
+**/embeddings.npy
+
+# Temporary recordings
+**/recordings/
+**/latest_recording.wav
+
+# Downloaded model files
+face_authentication/authentication/insightface_models/models/
+face_authentication/authentication/vosk-model-small-en-in-0.4/
+
+# IDE and OS files
+.vscode/
+.DS_Store
+Thumbs.db

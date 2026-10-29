@@ -1,0 +1,106 @@
+#include <Servo.h>
+
+Servo Servo1;
+Servo Servo2;
+Servo Servo3;
+
+const int SERVO1_PIN = 3;
+const int SERVO2_PIN = 6;
+const int SERVO3_PIN = 9;
+
+const int T_angle1 = 90;
+const int T_angle2 = 80;   // elbow less than 90
+const int T_angle3 = 120; // gripper 120 max
+const int STEP_DELAY = 30;
+
+void setup() {
+
+  
+  
+  
+
+
+  // Move to initial position: 0°
+  Servo3.attach(SERVO3_PIN);
+  Servo3.write(40);
+  delay(2000);
+  Servo2.attach(SERVO2_PIN);
+  Servo2.write(20);
+  delay(2000);
+  Servo1.attach(SERVO1_PIN);
+  Servo1.write(0);
+  delay(2000);
+  
+ 
+
+  // Move 1° at a time until target angle
+  for (int angle = 0; angle <= T_angle1; angle++) {
+    Servo1.write(angle);
+    delay(STEP_DELAY);
+  }
+
+  delay(1000);
+  for (int angle = 0; angle <= T_angle2; angle++) {
+    Servo2.write(angle);
+    delay(STEP_DELAY);
+  }
+  delay(1000);
+  for (int angle = 0; angle <= T_angle3; angle++) {
+    Servo3.write(angle);
+    delay(STEP_DELAY);
+  }
+  delay(1000);
+
+  // pick up code elbow
+  for (int angle = T_angle2; angle >= 20 ; angle--) {
+    Servo2.write(angle);
+    delay(STEP_DELAY);
+  }
+  delay(1000);
+  // rotate base
+  for (int angle = T_angle1; angle <= 140 ; angle++) {
+    Servo1.write(angle);
+    delay(STEP_DELAY);
+  }
+  delay(1000);
+  // drop down elbow
+  for (int angle = 20; angle <= T_angle2 ; angle++) {
+    Servo2.write(angle);
+    delay(STEP_DELAY);
+  }
+  delay(1000);
+
+  //open gripper
+
+  for (int angle = T_angle3; angle >= 20; angle--) {
+    Servo3.write(angle);
+    delay(STEP_DELAY);
+  }
+  delay(1000);
+
+  // Return to initial position: 0°
+  for (int angle = T_angle2; angle >= 10; angle--) {
+    Servo2.write(angle);
+    delay(STEP_DELAY);
+  }
+  // Return to initial position: 0°
+  for (int angle = 140; angle >= 0; angle--) {
+    Servo1.write(angle);
+    delay(STEP_DELAY); 	
+  }
+  // Return to initial position: 0°
+  for (int angle = T_angle3; angle >= 0; angle--) {
+    Servo3.write(angle);
+    delay(STEP_DELAY);
+  }
+
+
+  
+  Servo3.write(110);
+  Servo2.write(20);
+  Servo1.write(10);
+}
+
+void loop() {
+  // Nothing here
+}
